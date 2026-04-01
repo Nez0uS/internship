@@ -1,4 +1,4 @@
-from crud import *
+from crud import create_task, update_task, delete_task, get_all_tasks
 
 
 def show_menu():
@@ -14,21 +14,21 @@ def show_menu():
 
 
 def main() -> None:
-    show_menu()
     while True:
+        show_menu()
         answer = input('Выберите действие: ')
         if answer == '1':
             tasks = get_all_tasks()
             if not tasks:
                 print('Задач пока нет\n')
-
-            for task in tasks:
-                print(f'{task.id}: {task.title}, {task.completed}')
+            else:
+                for task in tasks:
+                    print(f'{task.id}: {task.title}, {task.completed}')
 
         elif answer == '2':
             title_task_for_create = input('Задание: ')
             description_task_for_creat = input('Описание: ')
-            if title_task_for_create is None:
+            if not title_task_for_create.strip():
                 print('Название задания не может быть пустым\n')
                 continue
             task_for_create = create_task(title_task_for_create, description_task_for_creat)
@@ -58,7 +58,7 @@ def main() -> None:
                 if delete_task(id_task_for_delete):
                     print('Задача удалена\n')
                 else:
-                    print('Что-то пошло не так\n')
+                    print('Задача с таким ID не найдена\n')
             except ValueError:
                 print('Введите корректный номер\n')
 
