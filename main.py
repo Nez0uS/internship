@@ -14,6 +14,7 @@ def show_menu():
 
 
 def main() -> None:
+    show_menu()
     while True:
         answer = input('Выберите действие: ')
         if answer == '1':
@@ -22,7 +23,7 @@ def main() -> None:
                 print('Задач пока нет\n')
 
             for task in tasks:
-                print(f'{task.title}: {task.description}, {task.completed}')
+                print(f'{task.id}: {task.title}, {task.completed}')
 
         elif answer == '2':
             title_task_for_create = input('Задание: ')
@@ -49,16 +50,15 @@ def main() -> None:
                 if not tasks:
                     print('Задач нету\n')
                     continue
-                print('Ваши задачи:\n')
 
+                print('Ваши задачи:\n')
                 for task in tasks:
                     print(f'{task.id}: {task.title}')
-                    id_task_for_delete = int(input('Введите ID задания для удаления: '))
-                    if delete_task(id_task_for_delete):
-                        print('Задача удалена\n')
-                    else:
-                        print('Что-то пошло не так\n')
-
+                id_task_for_delete = int(input('Введите ID задания для удаления: '))
+                if delete_task(id_task_for_delete):
+                    print('Задача удалена\n')
+                else:
+                    print('Что-то пошло не так\n')
             except ValueError:
                 print('Введите корректный номер\n')
 
